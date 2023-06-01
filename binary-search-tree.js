@@ -70,7 +70,20 @@ class BinarySearchTree {
   /** find(val): search the tree for a node with value val.
    * return the node, if found; else undefined. Uses iteration. */
 
-  find(val) {}
+  find(val) {
+    let currentNode = this.root;
+    while (currentNode) {
+      if (currentNode.val === val) {
+        return currentNode;
+      }
+      if (currentNode.val > val) {
+        currentNode = currentNode.left;
+      } else {
+        currentNode = currentNode.right;
+      }
+    }
+    return undefined;
+  }
 
   /** findRecursively(val): search the tree for a node with value val.
    * return the node, if found; else undefined. Uses recursion. */
@@ -116,5 +129,8 @@ class BinarySearchTree {
 }
 
 module.exports = BinarySearchTree;
-var binarySearchTree = new BinarySearchTree();
-binarySearchTree.insertRecursively(15);
+let binarySearchTree = new BinarySearchTree();
+binarySearchTree.insert(15);
+binarySearchTree.insert(20);
+const foundNode = binarySearchTree.find(20);
+console.log(foundNode);
