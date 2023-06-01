@@ -16,22 +16,23 @@ class BinarySearchTree {
 
   insert(val) {
     const newNode = new Node(val);
-    let currentNode = this.root;
-
+    console.log(newNode.val);
     if (this.root === null) {
       this.root = newNode;
+      return this;
     }
 
+    let currentNode = this.root;
     while (currentNode) {
-      if (newNode.val < currentNode.val) {
-        if (!currentNode.left) {
+      if (val < currentNode.val) {
+        if (currentNode.left === null) {
           currentNode.left = newNode;
           return this;
         } else {
           currentNode = currentNode.left;
         }
-      } else if (newNode.val > currentNode.right) {
-        if (!currentNode.right) {
+      } else {
+        if (currentNode.right === null) {
           currentNode.right = newNode;
           return this;
         } else {
@@ -39,7 +40,6 @@ class BinarySearchTree {
         }
       }
     }
-    return this;
   }
 
   /** insertRecursively(val): insert a new node into the BST with value val.
@@ -110,7 +110,19 @@ class BinarySearchTree {
   /** dfsPreOrder(): Traverse the array using pre-order DFS.
    * Return an array of visited nodes. */
 
-  dfsPreOrder() {}
+  dfsPreOrder() {
+    let currentNode = this.root;
+    let data = [];
+
+    function traverse(node) {
+      data.push(node.val);
+      node.left && traverse(node.left);
+      node.right && traverse(node.right);
+    }
+
+    traverse(currentNode);
+    return data;
+  }
 
   /** dfsInOrder(): Traverse the array using in-order DFS.
    * Return an array of visited nodes. */
@@ -146,8 +158,3 @@ class BinarySearchTree {
 }
 
 module.exports = BinarySearchTree;
-let binarySearchTree = new BinarySearchTree();
-binarySearchTree.insert(15);
-binarySearchTree.insert(20);
-const foundNode = binarySearchTree.findRecursively(20);
-console.log(foundNode);
