@@ -161,7 +161,22 @@ class BinarySearchTree {
   /** bfs(): Traverse the array using BFS.
    * Return an array of visited nodes. */
 
-  bfs() {}
+  bfs() {
+    let node = this.root;
+    let queue = [];
+    let data = [];
+
+    queue.push(node);
+
+    while (queue.length) {
+      node = queue.shift();
+      data.push(node.val);
+      node.left && queue.push(node.left);
+      node.right && queue.push(node.right);
+    }
+
+    return data;
+  }
 
   /** Further Study!
    * remove(val): Removes a node in the BST with the value val.
@@ -182,3 +197,13 @@ class BinarySearchTree {
 }
 
 module.exports = BinarySearchTree;
+
+let binarySearchTree = new BinarySearchTree();
+binarySearchTree.insert(15);
+binarySearchTree.insert(20);
+binarySearchTree.insert(10);
+binarySearchTree.insert(12);
+binarySearchTree.insert(1);
+binarySearchTree.insert(5);
+binarySearchTree.insert(50);
+console.log(binarySearchTree.bfs()); //([15, 10, 20, 1, 12, 50, 5]);
